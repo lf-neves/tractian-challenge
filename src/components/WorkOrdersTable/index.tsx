@@ -7,10 +7,14 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Box } from "@mui/material";
-import { useGetWorkOrders } from "@/hooks/useGetWorkOrders";
+import { useGetWorkOrders } from "@/lib/hooks/useGetWorkOrders";
 
-export const WorkOrdersTable: React.FC = () => {
-  const wOrders = useGetWorkOrders();
+interface WorkOrdersTable {
+  unitId: number;
+}
+
+export const WorkOrdersTable: React.FC<WorkOrdersTable> = ({ unitId }) => {
+  const wOrders = useGetWorkOrders(unitId);
 
   return (
     <Box sx={{ padding: "0 2rem ", marginBottom: "2rem" }}>
@@ -25,9 +29,9 @@ export const WorkOrdersTable: React.FC = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {wOrders.map((wo) => (
+            {wOrders.map((wo, index) => (
               <TableRow
-                key={wo.id}
+                key={index}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">

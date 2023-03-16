@@ -1,4 +1,4 @@
-import { useGetUserDetails } from "@/hooks/useGetUserDetails";
+import { useGetUserDetails } from "@/lib/hooks/useGetUserDetails";
 import { GetServerSideProps } from "next";
 
 const UserDetails = ({ userId }: { userId: number }) => {

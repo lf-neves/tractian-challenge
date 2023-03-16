@@ -1,10 +1,4 @@
-export interface User {
-  companyId: number;
-  email: string;
-  id: number;
-  name: string;
-  unitId: number;
-}
+import { User } from "../models/Users";
 
 export const getUsers = async (): Promise<Array<User>> => {
   const resp = await fetch(

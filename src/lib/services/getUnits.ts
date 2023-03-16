@@ -1,8 +1,4 @@
-export interface Unit {
-  companyId: number;
-  id: number;
-  name: string;
-}
+import { Unit } from "../models/Units";
 
 export const getUnits = async (): Promise<Array<Unit>> => {
   const resp = await fetch(
