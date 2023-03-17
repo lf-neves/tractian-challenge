@@ -1,7 +1,8 @@
 import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Unit, User, WorkOrder, Company } from "../models";
+import { Unit, User, WorkOrder, Company, Asset } from "../models";
 import { getUnits, getUsers, getCompanies, getWorkOrders } from "../services";
+import { getAssets } from "../services/getAssets";
 import { updateCompanies } from "../store/companies";
 
 interface FillCompaniesProps {
@@ -9,6 +10,7 @@ interface FillCompaniesProps {
   users: Array<User>;
   units: Array<Unit>;
   workOrders: Array<WorkOrder>;
+  assets: Array<Asset>;
 }
 
 export const useSetCompanies = () => {
@@ -16,9 +18,18 @@ export const useSetCompanies = () => {
   const dispatch = useDispatch();
 
   const fillCompanies = useCallback(
-    ({ companies, users, units, workOrders }: FillCompaniesProps) => {
+    ({ companies, users, units, workOrders, assets }: FillCompaniesProps) => {
+      workOrders.forEach((wo) => {
+        wo.users = users.filter((user) => wo.assignedUserIds.includes(user.id));
+      });
+
+      assets.forEach((asset) => {
+        asset.workOrders = workOrders.filter((wo) => wo.assetId === asset.id);
+      });
+
       units.forEach((unit) => {
-        unit.workOrders = workOrders;
+        unit.assets = assets.filter((asset) => asset.unitId === unit.id);
+        unit.users = users.filter((user) => user.unitId === unit.id);
       });
 
       companies.forEach((company) => {
@@ -37,9 +48,12 @@ export const useSetCompanies = () => {
       const units = await getUnits();
       const users = await getUsers();
       const workOrders = await getWorkOrders();
+      const assets = await getAssets();
 
       dispatch(
-        updateCompanies(fillCompanies({ companies, users, units, workOrders }))
+        updateCompanies(
+          fillCompanies({ companies, users, units, workOrders, assets })
+        )
       );
     };
 

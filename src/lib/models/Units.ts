@@ -1,8 +1,10 @@
-import { WorkOrder } from "./WorkOrders";
+import { Asset } from "./Asset";
+import { User } from "./Users";
 
 export interface Unit {
   companyId: number;
   id: number;
   name: string;
-  workOrders: Array<WorkOrder>;
+  assets: Array<Asset>;
+  users: Array<User>;
 }

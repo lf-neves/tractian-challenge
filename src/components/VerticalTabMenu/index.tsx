@@ -42,14 +42,18 @@ export const VerticalTabs = () => {
           marginTop: 10,
         }}
       >
-        <Tab label="Users" {...a11yProps(0)} />
-        <Tab label="Units" {...a11yProps(1)} />
+        <Tab label="Work Orders" {...a11yProps(0)} />
+        <Tab label="Users" {...a11yProps(1)} />
+        <Tab label="Units" {...a11yProps(2)} />
       </Tabs>
       <Box sx={{ width: "100%" }}>
         <PanelContent value={value} index={0}>
           <UsersTable />
         </PanelContent>
         <PanelContent value={value} index={1}>
+          <UsersTable />
+        </PanelContent>
+        <PanelContent value={value} index={2}>
           <UnitPanel />
         </PanelContent>
       </Box>
