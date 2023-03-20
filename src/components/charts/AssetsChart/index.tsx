@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { Asset } from "@/lib/models";
 import { Box } from "@mui/material";
 import { Cell, Pie, PieChart } from "recharts";
