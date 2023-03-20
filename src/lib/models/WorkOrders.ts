@@ -1,5 +1,3 @@
-import { User } from "./Users";
-
 export enum WorkOrderStatus {
   completed = "completed",
   progress = "in progress",
@@ -19,5 +17,4 @@ export interface WorkOrder {
   priority: string; //Todo:  Should be a enum too, investigate the possible states
   status: WorkOrderStatus;
   title: string;
-  users: Array<User>;
 }

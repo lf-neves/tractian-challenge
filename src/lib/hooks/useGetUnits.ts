@@ -1,15 +1,17 @@
 import { useMemo } from "react";
+import { useSelector } from "react-redux";
 import { Unit } from "../models";
-import { useGetCompanies } from "./useGetCompanies";
+import { ReducerProps } from "../store/companies";
 
-export const useGetUnits = (companyId: number): Array<Unit> => {
-  const companies = useGetCompanies();
+export const useGetUnits = (): Array<Unit> => {
+  const companyId = useSelector(
+    (state: ReducerProps) => state.selectedCompanyId
+  );
+  const units = useSelector((state: ReducerProps) => state.units);
 
-  const units = useMemo(() => {
-    return (
-      companies.filter((company) => company.id === companyId)[0]?.units || []
-    );
-  }, [companies, companyId]);
+  const filteredUnits = useMemo(() => {
+    return units.filter((u) => u.companyId === companyId);
+  }, [companyId, units]);
 
-  return units;
+  return filteredUnits;
 };

@@ -1,11 +1,5 @@
 import { WorkOrder } from "./WorkOrders";
 
-export enum AssetStatus {
-  Running,
-  Alerting,
-  Stopped,
-}
-
 interface HealthHistory {
   status: string;
   timestamp: string;
@@ -21,15 +15,15 @@ export interface Asset {
   assignedUserIds: Array<Number>;
   companyId: number;
   healthHistory: Array<HealthHistory>;
-  healthScore: number;
+  healthscore: number;
   id: number;
   image: string;
   metrics: Metric;
   model: string;
   name: string;
-  sensor: Array<String>;
+  sensors: Array<String>;
   specifications: any;
-  status: AssetStatus;
+  status: string;
   unitId: number;
   workOrders: Array<WorkOrder>;
 }

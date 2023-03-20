@@ -1,4 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { companiesSlice } from "./companies";
+import { storeSlice } from "./companies";
 
-export const store = configureStore({ reducer: companiesSlice.reducer });
+export const store = configureStore({ reducer: storeSlice.reducer });

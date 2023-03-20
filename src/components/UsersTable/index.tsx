@@ -8,7 +8,9 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useGetUsers } from "@/lib/hooks/useGetUsers";
 
-export const UsersTable: React.FC = () => {
+export const UsersTable: React.FC<{ summarized?: boolean }> = ({
+  summarized = false,
+}) => {
   const users = useGetUsers();
 
   return (
@@ -18,8 +20,8 @@ export const UsersTable: React.FC = () => {
           <TableRow>
             <TableCell>Name</TableCell>
             <TableCell>Email</TableCell>
-            <TableCell>Unit</TableCell>
-            <TableCell>Details</TableCell>
+            {!summarized && <TableCell>Unit</TableCell>}
+            {!summarized && <TableCell>Details</TableCell>}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -32,8 +34,8 @@ export const UsersTable: React.FC = () => {
                 {user.name}
               </TableCell>
               <TableCell>{user.email}</TableCell>
-              <TableCell>{user.unitId}</TableCell>
-              <TableCell>Details</TableCell>
+              {!summarized && <TableCell>{user.unitId}</TableCell>}
+              {!summarized && <TableCell>Details</TableCell>}
             </TableRow>
           ))}
         </TableBody>

@@ -8,13 +8,14 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Box } from "@mui/material";
 import { useGetWorkOrders } from "@/lib/hooks/useGetWorkOrders";
+import { WorkOrdersDetailsModal } from "../WorkOrdersDetailsModal";
 
 interface WorkOrdersTable {
-  unitId: number;
+  assetId: number;
 }
 
-export const WorkOrdersTable: React.FC<WorkOrdersTable> = ({ unitId }) => {
-  const wOrders = useGetWorkOrders(unitId);
+export const WorkOrdersTable: React.FC<WorkOrdersTable> = ({ assetId }) => {
+  const wOrders = useGetWorkOrders(assetId);
 
   return (
     <Box sx={{ padding: "0 2rem ", marginBottom: "2rem" }}>
@@ -39,7 +40,9 @@ export const WorkOrdersTable: React.FC<WorkOrdersTable> = ({ unitId }) => {
                 </TableCell>
                 <TableCell>{wo.priority}</TableCell>
                 <TableCell>{wo.status}</TableCell>
-                <TableCell>Details</TableCell>
+                <TableCell>
+                  <WorkOrdersDetailsModal wOrders={wo} />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

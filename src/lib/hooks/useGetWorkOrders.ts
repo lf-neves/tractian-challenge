@@ -1,13 +1,14 @@
 import { useMemo } from "react";
+import { useSelector } from "react-redux";
 import { WorkOrder } from "../models";
-import { useGetUnits } from "./useGetUnits";
+import { ReducerProps } from "../store/companies";
 
-export const useGetWorkOrders = (unityId: number): Array<WorkOrder> => {
-  const units = useGetUnits(1);
+export const useGetWorkOrders = (assetId: number): Array<WorkOrder> => {
+  const wOrders = useSelector((state: ReducerProps) => state.workOrders);
 
-  const wOrders = useMemo(() => {
-    return units.filter((u) => u.id === unityId)[0].workOrders || [];
-  }, [units, unityId]);
+  const filteredOrders = useMemo(() => {
+    return wOrders.filter((wo) => wo.assetId == assetId);
+  }, [assetId, wOrders]);
 
-  return wOrders;
+  return filteredOrders;
 };

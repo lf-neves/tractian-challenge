@@ -1,6 +1,9 @@
 import { useSelector } from "react-redux";
 import { Company } from "../models";
+import { ReducerProps } from "../store/companies";
 
 export const useGetCompanies = (): Array<Company> => {
-  return useSelector((state: any) => state.companies);
+  const companies = useSelector((state: ReducerProps) => state.companies);
+
+  return companies;
 };

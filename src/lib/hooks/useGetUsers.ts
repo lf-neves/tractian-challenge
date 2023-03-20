@@ -1,18 +1,8 @@
-import { getUsers } from "@/lib/services/getUsers";
-import { useEffect, useState } from "react";
-import { User } from "../models/Users";
+import { useSelector } from "react-redux";
+import { ReducerProps } from "../store/companies";
 
 export const useGetUsers = () => {
-  const [data, setData] = useState<User[]>([]);
+  const users = useSelector((state: ReducerProps) => state.users);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await getUsers();
-      setData(response);
-    };
-
-    fetchData();
-  }, []);
-
-  return data;
+  return users;
 };

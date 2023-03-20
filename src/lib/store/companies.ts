@@ -1,19 +1,39 @@
-import { Company } from "../models/Companies";
 import { createSlice } from "@reduxjs/toolkit";
+import { Unit, User, WorkOrder, Company, Asset } from "../models";
 
-const initialCompanyArrayState: Array<Company> = [];
+export interface ReducerProps {
+  companies: Array<Company>;
+  users: Array<User>;
+  units: Array<Unit>;
+  workOrders: Array<WorkOrder>;
+  assets: Array<Asset>;
+  selectedCompanyId: number;
+}
 
-export const companiesSlice = createSlice({
-  name: "companies",
+const iCompanyArrayState: Array<Company> = [];
+const iUsersArrayState: Array<User> = [];
+const iUnitsArrayState: Array<Unit> = [];
+const iWorkOrdersArrayState: Array<WorkOrder> = [];
+const iAssetsArrayState: Array<Asset> = [];
+
+export const storeSlice = createSlice({
+  name: "store",
   initialState: {
-    companies: initialCompanyArrayState,
-    selectedCompany: null,
+    companies: iCompanyArrayState,
+    users: iUsersArrayState,
+    units: iUnitsArrayState,
+    workOrders: iWorkOrdersArrayState,
+    assets: iAssetsArrayState,
+    selectedCompanyId: 1,
   },
   reducers: {
-    updateCompanies: (state, action) => {
-      state.companies = action.payload;
+    updateStore: (state, action) => {
+      return { ...state, ...action.payload };
+    },
+    setSelectedCompanyId: (state, action) => {
+      state.selectedCompanyId = action.payload;
     },
   },
 });
 
-export const { updateCompanies } = companiesSlice.actions;
+export const { updateStore, setSelectedCompanyId } = storeSlice.actions;
