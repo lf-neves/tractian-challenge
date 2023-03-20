@@ -29,6 +29,7 @@ export const HealthHistoryChart: React.FC<HealthHistoryChartProps> = ({
   const formattedDataSource = healthHistory.map((hValue) => {
     return {
       name: formatTimestampToDayWithMonth(hValue.timestamp),
+      //@ts-ignore
       uv: AssetStatus[hValue.status], //TODO: FIX TO USE ENUM
     };
   });
