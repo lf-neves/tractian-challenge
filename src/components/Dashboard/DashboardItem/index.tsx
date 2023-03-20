@@ -3,12 +3,11 @@ import Paper from "@mui/material/Paper";
 import { ReactNode } from "react";
 
 interface DashboardItemProps {
-  props: GridProps;
-  height: number;
+  height?: number;
   children: ReactNode;
 }
 
-export const DashboardItem: React.FC<DashboardItemProps> = ({
+export const DashboardItem: React.FC<DashboardItemProps & GridProps> = ({
   height,
   children,
   ...props
@@ -20,7 +19,7 @@ export const DashboardItem: React.FC<DashboardItemProps> = ({
           p: 2,
           display: "flex",
           flexDirection: "column",
-          height: height,
+          height: height || "unset",
         }}
       >
         {children}

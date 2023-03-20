@@ -150,11 +150,11 @@ const Asset = () => {
               </Box>
             </Box>
           </DashboardItem>
-          <DashboardItem xs={12} md={8}>
+          <DashboardItem height={300} xs={12} md={8}>
             <Title>Health History</Title>
             <HealthHistoryChart healthHistory={selectedAsset.healthHistory} />
           </DashboardItem>
-          <DashboardItem xs={12} md={4}>
+          <DashboardItem height={300} xs={12} md={4}>
             <Title>Asset Metrics</Title>
             <List>
               <ListItem>
