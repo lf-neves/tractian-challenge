@@ -1,6 +1,5 @@
 import { CompanyMenu } from "@/components/CompanyMenu";
 import Dashboard from "@/components/Dashboard";
-import Chart from "@/components/Dashboard/Chart";
 import Title from "@/components/Dashboard/DashboardItem/Title";
 import { UsersTable } from "@/components/UsersTable";
 import { useSetCompanies } from "@/lib/hooks/useSetCompanies";
@@ -25,7 +24,7 @@ const Home = () => {
               height: 240,
             }}
           >
-            <Chart />
+            <>test</>
           </Paper>
         </Grid>
         <Grid item xs={12} md={4} lg={3}>
