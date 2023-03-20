@@ -1,7 +1,7 @@
 import { CompanyMenu } from "@/components/CompanyMenu";
 import Dashboard from "@/components/Dashboard";
 import Chart from "@/components/Dashboard/Chart";
-import Title from "@/components/Dashboard/Title";
+import Title from "@/components/Dashboard/DashboardItem/Title";
 import { UsersTable } from "@/components/UsersTable";
 import { useSetCompanies } from "@/lib/hooks/useSetCompanies";
 import { Grid, Paper } from "@mui/material";

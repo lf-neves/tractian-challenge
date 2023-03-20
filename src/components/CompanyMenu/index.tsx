@@ -1,31 +1,26 @@
 import { useGetCompanies } from "@/lib/hooks/useGetCompanies";
-import { Company } from "@/lib/models";
 import { setSelectedCompanyId } from "@/lib/store/companies";
-import { MenuItem, Select } from "@mui/material";
+import { Box } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { StyledMenuContainer } from "./styled";
+import { SelectMenu } from "../common/SelectMenu";
 
 export const CompanyMenu: React.FC = () => {
   const companies = useGetCompanies();
   const dispatch = useDispatch();
 
+  const formattedData = companies.map((company) => ({
+    label: company.name,
+    value: company.id,
+  }));
+
   return companies.length > 0 ? (
-    <StyledMenuContainer>
-      <Select
-        value={companies[0]?.id}
-        fullWidth
-        size="small"
-        onChange={(e) => {
-          dispatch(setSelectedCompanyId(e.target.value));
-        }}
-      >
-        {companies.map((company: Company) => (
-          <MenuItem key={company.id} value={company.id}>
-            {company.name}
-          </MenuItem>
-        ))}
-      </Select>
-    </StyledMenuContainer>
+    <Box>
+      <SelectMenu
+        selectedValue={1}
+        data={formattedData}
+        onChange={(value) => dispatch(setSelectedCompanyId(value))}
+      />
+    </Box>
   ) : (
     <></>
   );
