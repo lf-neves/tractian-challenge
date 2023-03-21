@@ -4,7 +4,6 @@ import { DashboardItem } from "@/components/Dashboard/DashboardItem";
 import Title from "@/components/Dashboard/DashboardItem/Title";
 import { DownAssetsTable } from "@/components/tables/DowAssetsTable";
 import { IncompleteWorkOrdersTable } from "@/components/tables/IncompleteWorkOrdersTable";
-import { UnitsTable } from "@/components/tables/UnitsTable";
 import { UsersTable } from "@/components/tables/UsersTable";
 import { useGetUnits } from "@/lib/hooks/useGetUnits";
 import { useGetUsers } from "@/lib/hooks/useGetUsers";
