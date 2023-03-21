@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { getUnits, getUsers, getCompanies, getWorkOrders } from "../services";
 import { getAssets } from "../services/getAssets";
@@ -8,19 +9,54 @@ export const useSetCompanies = () => {
   const data = useSelector((state: any) => state.companies);
   const dispatch = useDispatch();
 
+  const { data: companiesData, isLoading: companiesLoading } = useQuery(
+    "companies",
+    getCompanies
+  );
+  const { data: unitsData, isLoading: unitsLoading } = useQuery(
+    "units",
+    getUnits
+  );
+  const { data: usersData, isLoading: usersLoading } = useQuery(
+    "users",
+    getUsers
+  );
+  const { data: workOrdersData, isLoading: workOrdersLoading } = useQuery(
+    "workOrders",
+    getWorkOrders
+  );
+  const { data: assetsData, isLoading: assetsLoading } = useQuery(
+    "assets",
+    getAssets
+  );
+
+  const isLoading =
+    companiesLoading ||
+    unitsLoading ||
+    usersLoading ||
+    workOrdersLoading ||
+    assetsLoading;
+
   useEffect(() => {
-    const fetchData = async () => {
-      const companies = await getCompanies();
-      const units = await getUnits();
-      const users = await getUsers();
-      const workOrders = await getWorkOrders();
-      const assets = await getAssets();
-
-      dispatch(updateStore({ companies, users, units, workOrders, assets }));
-    };
-
-    fetchData();
-  }, [dispatch]);
+    !isLoading &&
+      dispatch(
+        updateStore({
+          companies: companiesData,
+          users: usersData,
+          units: unitsData,
+          workOrders: workOrdersData,
+          assets: assetsData,
+        })
+      );
+  }, [
+    assetsData,
+    companiesData,
+    dispatch,
+    isLoading,
+    unitsData,
+    usersData,
+    workOrdersData,
+  ]);
 
   return data;
 };

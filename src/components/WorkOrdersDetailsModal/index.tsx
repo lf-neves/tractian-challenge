@@ -27,7 +27,7 @@ export const WorkOrdersDetailsModal: React.FC<{ wOrders: WorkOrder }> = ({
       <Grid container spacing={10}>
         <DashboardItem height={300} xs={12} md={4}>
           <Title>Owners</Title>
-          <UsersTable summarized />
+          <UsersTable summarized filterByIds={wOrders.assignedUserIds} />
         </DashboardItem>
         <DashboardItem height={300} xs={12} md={4}>
           <Title>Details</Title>

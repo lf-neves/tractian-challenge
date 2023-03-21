@@ -8,10 +8,22 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useGetUsers } from "@/lib/hooks/useGetUsers";
 
-export const UsersTable: React.FC<{ summarized?: boolean }> = ({
+interface UsersTableProps {
+  summarized?: boolean;
+  filterByIds?: Array<number>;
+}
+
+export const UsersTable: React.FC<UsersTableProps> = ({
   summarized = false,
+  filterByIds,
 }) => {
   const users = useGetUsers();
+
+  const filteredUsers = React.useMemo(() => {
+    return filterByIds
+      ? users.filter((user) => filterByIds.includes(user.id))
+      : users;
+  }, [filterByIds, users]);
 
   return (
     <TableContainer component={Paper}>
@@ -25,7 +37,7 @@ export const UsersTable: React.FC<{ summarized?: boolean }> = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {users.map((user) => (
+          {filteredUsers.map((user) => (
             <TableRow
               key={user.name}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

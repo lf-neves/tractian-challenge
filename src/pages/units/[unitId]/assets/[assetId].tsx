@@ -38,7 +38,7 @@ const Asset = () => {
     parseInt(assetId as string) || 1
   );
 
-  const selectedAsset = assets[selectedAssetId];
+  const selectedAsset = assets.find((asset) => asset.id === selectedAssetId);
 
   const formattedSelectData = assets.map((asset) => ({
     label: asset.name,

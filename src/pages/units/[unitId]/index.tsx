@@ -7,9 +7,11 @@ import Title from "@/components/Dashboard/DashboardItem/Title";
 import { UsersTable } from "@/components/UsersTable";
 import { useGetAssets } from "@/lib/hooks/useGetAssets";
 import { useGetUnits } from "@/lib/hooks/useGetUnits";
+import { useGetUsers } from "@/lib/hooks/useGetUsers";
 import { useSetCompanies } from "@/lib/hooks/useSetCompanies";
 import { Grid } from "@mui/material";
 import { useRouter } from "next/router";
+import React from "react";
 import { useState } from "react";
 
 const Unit = () => {
@@ -19,7 +21,7 @@ const Unit = () => {
   const { unitId } = router.query;
   const units = useGetUnits();
 
-  const [selectedUnit, setSelectedUnit] = useState(
+  const [selectedUnitId, setSelectedUnitId] = useState(
     parseInt(unitId as string) || 1
   );
 
@@ -28,7 +30,13 @@ const Unit = () => {
     value: unit.id,
   }));
 
-  const assets = useGetAssets(selectedUnit);
+  const assets = useGetAssets(selectedUnitId);
+  const users = useGetUsers();
+  const unitUsersIds = React.useMemo(() => {
+    return users
+      .filter((user) => user.unitId === selectedUnitId)
+      .map((u) => u.id);
+  }, [selectedUnitId, users]);
 
   return (
     <Dashboard>
@@ -36,14 +44,14 @@ const Unit = () => {
         <Grid item xs={12} md={8} lg={9}>
           <SelectMenu
             data={formattedSelectData}
-            onChange={(value) => setSelectedUnit(value)}
-            selectedValue={selectedUnit}
+            onChange={(value) => setSelectedUnitId(value)}
+            selectedValue={selectedUnitId}
           />
         </Grid>
         {/* Chart */}
         <DashboardItem height={300} xs={12} md={6} lg={6}>
           <Title>Unit Users</Title>
-          <UsersTable summarized />
+          <UsersTable summarized filterByIds={unitUsersIds} />
         </DashboardItem>
         <DashboardItem height={300} xs={12} md={6} lg={6}>
           <Title>Assets Statuses</Title>
