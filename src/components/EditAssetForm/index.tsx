@@ -48,6 +48,7 @@ export const EditAssetForm: React.FC<EditAssetProps> = ({ asset, setOpen }) => {
   });
   const { fields, remove, append } = useFieldArray({
     control,
+    //@ts-ignore
     name: "sensors",
   });
 
