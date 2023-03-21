@@ -107,7 +107,7 @@ export const EditAssetForm: React.FC<EditAssetProps> = ({ asset, setOpen }) => {
             <Title>Specifications</Title>
             <TextField
               InputLabelProps={{
-                shrink: asset.specifications.power !== undefined,
+                shrink: true,
               }}
               {...register("specifications.power")}
               sx={{ my: 2 }}
@@ -116,7 +116,7 @@ export const EditAssetForm: React.FC<EditAssetProps> = ({ asset, setOpen }) => {
             />
             <TextField
               InputLabelProps={{
-                shrink: asset.specifications.maxTemp !== undefined,
+                shrink: true,
               }}
               {...register("specifications.maxTemp")}
               sx={{ my: 2 }}
@@ -125,7 +125,7 @@ export const EditAssetForm: React.FC<EditAssetProps> = ({ asset, setOpen }) => {
             />
             <TextField
               InputLabelProps={{
-                shrink: asset.specifications.rpm !== undefined,
+                shrink: true,
               }}
               {...register("specifications.rpm")}
               sx={{ my: 2 }}

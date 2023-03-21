@@ -9,4 +9,6 @@ export const StyledModalContainer = styled(Box)`
   background-color: white;
   box-shadow: 24;
   padding: 4rem;
+  max-height: 80%;
+  overflow-y: scroll;
 `;
