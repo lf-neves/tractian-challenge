@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { Asset } from "@/lib/models";
+import { Asset, AssetStatusEnum } from "@/lib/models";
 import { Box } from "@mui/material";
 import { Cell, Pie, PieChart } from "recharts";
 
@@ -56,13 +56,13 @@ const renderCustomizedLabel = ({
 export const AssetsChart: React.FC<AssetsChartProps> = ({ assets }) => {
   assets?.forEach((asset) => {
     switch (asset.status) {
-      case "inOperation":
+      case AssetStatusEnum.inOperation:
         data[0].value += 1;
         break;
-      case "inAlert":
+      case AssetStatusEnum.inAlert:
         data[1].value += 1;
         break;
-      case "inDowntime":
+      case AssetStatusEnum.inDowntime:
         data[2].value += 1;
         break;
     }

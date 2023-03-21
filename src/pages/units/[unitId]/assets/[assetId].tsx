@@ -28,9 +28,12 @@ import { HealthHistoryChart } from "@/components/charts/HealthHistoryChart";
 import { DashboardItem } from "@/components/Dashboard/DashboardItem";
 import { EditAssetForm } from "@/components/EditAssetForm";
 import { Modal } from "@/components/common/Modal";
+import React from "react";
 
 const Asset = () => {
   useSetCompanies();
+
+  const [openEditModal, setOpenEditModal] = React.useState(false);
 
   const router = useRouter();
   const { assetId, unitId } = router.query;
@@ -67,8 +70,16 @@ const Asset = () => {
                 selectedValue={selectedAssetId}
               />
               <Box sx={{ ml: 5 }}>
-                <Modal buttonText="Edit" buttonVariant="contained">
-                  <EditAssetForm asset={selectedAsset} />
+                <Modal
+                  open={openEditModal}
+                  setOpen={setOpenEditModal}
+                  buttonText="Edit"
+                  buttonVariant="contained"
+                >
+                  <EditAssetForm
+                    asset={selectedAsset}
+                    setOpen={setOpenEditModal}
+                  />
                 </Modal>
               </Box>
             </Flex>
@@ -132,13 +143,15 @@ const Asset = () => {
                   <ListItemText
                     primary="Specifications"
                     secondary={
-                      <ul style={{ paddingLeft: 20 }}>
-                        {Object.entries(selectedAsset.specifications).map(
-                          (spec) => (
-                            <li key={spec[0]}>{`${spec[0]}: ${spec[1]}`}</li>
-                          )
-                        )}
-                      </ul>
+                      <>
+                        <ul style={{ paddingLeft: 20 }}>
+                          {Object.entries(selectedAsset.specifications).map(
+                            (spec) => (
+                              <li key={spec[0]}>{`${spec[0]}: ${spec[1]}`}</li>
+                            )
+                          )}
+                        </ul>
+                      </>
                     }
                   />
                 </ListItem>

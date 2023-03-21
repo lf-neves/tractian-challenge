@@ -48,7 +48,6 @@ const Unit = () => {
             selectedValue={selectedUnitId}
           />
         </Grid>
-        {/* Chart */}
         <DashboardItem height={300} xs={12} md={6} lg={6}>
           <Title>Unit Users</Title>
           <UsersTable summarized filterByIds={unitUsersIds} />

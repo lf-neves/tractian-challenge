@@ -1,7 +1,7 @@
 import { WorkOrder } from "./WorkOrders";
 
-interface HealthHistory {
-  status: string;
+export interface HealthHistory {
+  status: AssetStatusEnum;
   timestamp: string;
 }
 
@@ -9,6 +9,17 @@ interface Metric {
   lastUptimeAt: string;
   totalCollectsUptime: number;
   totalUptime: number;
+}
+interface Specifications {
+  maxTemp?: number;
+  power?: number;
+  rpm?: number;
+}
+
+export enum AssetStatusEnum {
+  inAlert = "inAlert",
+  inOperation = "inOperation",
+  inDowntime = "inDowntime",
 }
 
 export interface Asset {
@@ -22,8 +33,8 @@ export interface Asset {
   model: string;
   name: string;
   sensors: Array<string>;
-  specifications: any;
-  status: string;
+  specifications: Specifications;
+  status: AssetStatusEnum;
   unitId: number;
   workOrders: Array<WorkOrder>;
 }

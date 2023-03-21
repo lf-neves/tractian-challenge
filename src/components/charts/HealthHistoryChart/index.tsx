@@ -1,3 +1,4 @@
+import { AssetStatusEnum, HealthHistory } from "@/lib/models";
 import {
   LineChart,
   Line,
@@ -9,7 +10,7 @@ import {
 } from "recharts";
 
 interface HealthHistoryChartProps {
-  healthHistory: Array<{ timestamp: string; status: string }>;
+  healthHistory: Array<HealthHistory>;
 }
 
 enum AssetStatus {
@@ -30,7 +31,7 @@ export const HealthHistoryChart: React.FC<HealthHistoryChartProps> = ({
     return {
       name: formatTimestampToDayWithMonth(hValue.timestamp),
       //@ts-ignore
-      uv: AssetStatus[hValue.status], //TODO: FIX TO USE ENUM
+      uv: AssetStatus[AssetStatusEnum[hValue.status]],
     };
   });
 

@@ -6,7 +6,7 @@ import { getAssets } from "../services/getAssets";
 import { updateStore } from "../store/companies";
 
 export const useSetCompanies = () => {
-  const data = useSelector((state: any) => state.companies);
+  const { companies } = useSelector((state: any) => state);
   const dispatch = useDispatch();
 
   const { data: companiesData, isLoading: companiesLoading } = useQuery(
@@ -39,6 +39,7 @@ export const useSetCompanies = () => {
 
   useEffect(() => {
     !isLoading &&
+      companies.length === 0 &&
       dispatch(
         updateStore({
           companies: companiesData,
@@ -50,6 +51,7 @@ export const useSetCompanies = () => {
       );
   }, [
     assetsData,
+    companies.length,
     companiesData,
     dispatch,
     isLoading,
@@ -58,5 +60,5 @@ export const useSetCompanies = () => {
     workOrdersData,
   ]);
 
-  return data;
+  return;
 };

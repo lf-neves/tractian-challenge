@@ -15,12 +15,15 @@ import BuildIcon from "@mui/icons-material/Build";
 import LowPriorityIcon from "@mui/icons-material/LowPriority";
 import { WorkOrder } from "@/lib/models";
 import { DashboardItem } from "../Dashboard/DashboardItem";
+import React from "react";
 
 export const WorkOrdersDetailsModal: React.FC<{ wOrders: WorkOrder }> = ({
   wOrders,
 }) => {
+  const [open, setOpen] = React.useState(false);
+
   return (
-    <Modal buttonText="Details">
+    <Modal buttonText="Details" open={open} setOpen={setOpen}>
       <Typography variant="h4" sx={{ mb: 5 }}>
         Work Order Details - {wOrders.title}
       </Typography>

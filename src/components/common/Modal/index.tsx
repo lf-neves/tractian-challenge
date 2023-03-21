@@ -5,22 +5,25 @@ import { StyledModalContainer } from "./styled";
 import { Box } from "@mui/material";
 
 interface ModalProps {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   buttonText: string;
   children: React.ReactNode;
   buttonVariant?: ButtonProps["variant"];
 }
 
 export const Modal: React.FC<ModalProps> = ({
+  open,
+  setOpen,
   buttonText,
   children,
   buttonVariant = "text",
 }) => {
-  const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
-    <Box>
+    <Box sx={{ maxHeight: 1200 }}>
       <Button onClick={handleOpen} variant={buttonVariant}>
         {buttonText}
       </Button>

@@ -8,36 +8,42 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useFieldArray, useForm, Controller } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Flex } from "../common/Flex";
 import { DashboardItem } from "../Dashboard/DashboardItem";
 import Title from "../Dashboard/DashboardItem/Title";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import dayjs from "dayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 interface EditAssetProps {
   asset: Asset;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface EditAssetFormProps {
   model: string;
   sensors: Array<string>;
-  specifications: any;
-  lastUpTimeAt: string;
-  totalCollectsUptime: number;
-  totalUptime: number;
+  specifications: {
+    maxTemp?: number;
+    power?: number;
+    rpm?: number;
+  };
+  metrics: {
+    lastUptimeAt: string;
+    totalCollectsUptime: number;
+    totalUptime: number;
+  };
 }
 
-export const EditAssetForm: React.FC<EditAssetProps> = ({ asset }) => {
+export const EditAssetForm: React.FC<EditAssetProps> = ({ asset, setOpen }) => {
   const { handleSubmit, register, control } = useForm<EditAssetFormProps>({
     defaultValues: {
-      model: asset.model,
-      sensors: asset.sensors,
-      specifications: asset.specifications,
-      lastUpTimeAt: asset.metrics.lastUptimeAt,
-      totalCollectsUptime: asset.metrics.totalCollectsUptime,
-      totalUptime: asset.metrics.totalUptime,
+      ...asset,
     },
   });
   const { fields, remove, append } = useFieldArray({
@@ -55,6 +61,7 @@ export const EditAssetForm: React.FC<EditAssetProps> = ({ asset }) => {
     );
 
     dispatch(updateAssets(newAssets));
+    setOpen(false);
   };
 
   return (
@@ -96,59 +103,81 @@ export const EditAssetForm: React.FC<EditAssetProps> = ({ asset }) => {
               </IconButton>
             </Box>
 
-            {/* <TextField
-              InputLabelProps={{ shrink: true }}
-              {...register("specifications")}
+            <Title>Specifications</Title>
+            <TextField
+              InputLabelProps={{
+                shrink: asset.specifications.power !== undefined,
+              }}
+              {...register("specifications.power")}
               sx={{ my: 2 }}
-              label="Specifications"
+              label="Power (kWh)"
               fullWidth
-            /> */}
+            />
+            <TextField
+              InputLabelProps={{
+                shrink: asset.specifications.maxTemp !== undefined,
+              }}
+              {...register("specifications.maxTemp")}
+              sx={{ my: 2 }}
+              label="Max Temperature (Celsius)"
+              fullWidth
+            />
+            <TextField
+              InputLabelProps={{
+                shrink: asset.specifications.rpm !== undefined,
+              }}
+              {...register("specifications.rpm")}
+              sx={{ my: 2 }}
+              label="RPM"
+              fullWidth
+            />
           </DashboardItem>
           <DashboardItem sx={{ mt: 4 }} xs={12}>
             <Title>Asset Metrics</Title>
-            <TextField
-              InputLabelProps={{ shrink: true }}
-              {...register("lastUpTimeAt")}
-              sx={{ my: 2 }}
-              label="lastUpTime"
-              fullWidth
+            <Controller
+              control={control}
+              name={"metrics.lastUptimeAt"}
+              render={({ field: { onChange } }) => (
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DateTimePicker
+                    sx={{ my: 2 }}
+                    label="Last Uptime At"
+                    defaultValue={dayjs(asset.metrics.lastUptimeAt)}
+                    onChange={(e) => onChange(e?.toISOString())}
+                  />
+                </LocalizationProvider>
+              )}
             />
             <TextField
               InputLabelProps={{ shrink: true }}
-              {...register("totalCollectsUptime")}
+              {...register("metrics.totalCollectsUptime", {
+                valueAsNumber: true,
+              })}
               sx={{ my: 2 }}
               label="Total Collects Uptime"
               fullWidth
+              required
             />
             <TextField
               InputLabelProps={{ shrink: true }}
-              {...register("totalUptime")}
+              {...register("metrics.totalUptime")}
               sx={{ my: 2 }}
               label="Total Uptime"
               fullWidth
+              required
             />
           </DashboardItem>
         </Grid>
         <Box
           sx={{
             display: "flex",
-            justifyContent: "flex-end",
+            justifyContent: "space-between",
             pt: 5,
           }}
         >
-          <Button variant="contained">
-            <input
-              type="submit"
-              value="Submit"
-              style={{
-                backgroundColor: "transparent",
-                border: 0,
-                color: "white",
-                fontFamily: "inherit",
-                padding: 3,
-                fontWeight: "inherit",
-              }}
-            />
+          <Button onClick={() => setOpen(false)}>Cancel</Button>
+          <Button variant="contained" onClick={handleSubmit(onSubmit)}>
+            Save
           </Button>
         </Box>
       </form>

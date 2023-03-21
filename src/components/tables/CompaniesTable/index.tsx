@@ -11,6 +11,9 @@ import { Modal } from "../../common/Modal";
 
 export const CompaniesTable: React.FC = () => {
   const companies = useGetCompanies();
+
+  const [openModal, setOpenModal] = React.useState(false);
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -32,7 +35,11 @@ export const CompaniesTable: React.FC = () => {
               </TableCell>
               <TableCell>{company.name}</TableCell>
               <TableCell>
-                <Modal buttonText="Edit">
+                <Modal
+                  buttonText="Edit"
+                  open={openModal}
+                  setOpen={setOpenModal}
+                >
                   <>Not ready</>
                 </Modal>
               </TableCell>

@@ -1,20 +1,22 @@
-import { Asset } from "@/lib/models";
+import { Asset, AssetStatusEnum } from "@/lib/models";
 import { Chip } from "@mui/material";
 
 const getChipColorByStatus = (status: Asset["status"]) => {
   switch (status) {
-    case "inOperation":
+    case AssetStatusEnum.inOperation:
       return "#00C49F";
-    case "inAlert":
+    case AssetStatusEnum.inAlert:
       return "#FFBB28";
-    case "inDowntime":
+    case AssetStatusEnum.inDowntime:
       return "#FF8042";
     default:
       return "info";
   }
 };
 
-export const AssetStatusChip: React.FC<{ status: string }> = ({ status }) => {
+export const AssetStatusChip: React.FC<{ status: AssetStatusEnum }> = ({
+  status,
+}) => {
   return (
     <Chip
       size="small"

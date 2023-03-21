@@ -10,13 +10,16 @@ import { useSelector } from "react-redux";
 import { ReducerProps } from "@/lib/store/companies";
 import { Button } from "@mui/material";
 import { useRouter } from "next/router";
+import { AssetStatusEnum } from "@/lib/models";
 
 export const DownAssetsTable: React.FC = () => {
   const { assets } = useSelector((state: ReducerProps) => state);
   const router = useRouter();
 
   const downAssets = React.useMemo(() => {
-    return assets.filter((asset) => asset.status === "inDowntime");
+    return assets.filter(
+      (asset) => asset.status === AssetStatusEnum.inDowntime
+    );
   }, [assets]);
 
   return (
