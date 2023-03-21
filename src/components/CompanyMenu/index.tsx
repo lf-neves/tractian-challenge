@@ -8,8 +8,6 @@ export const CompanyMenu: React.FC = () => {
   const companies = useGetCompanies();
   const dispatch = useDispatch();
 
-  console.log(companies);
-
   const formattedData = companies.map((company) => ({
     label: company.name,
     value: company.id,

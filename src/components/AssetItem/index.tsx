@@ -52,7 +52,7 @@ export const AssetItem: React.FC<AssetProps> = ({ asset }) => {
         >
           <AssetStatusChip status={asset.status} />
           <Button
-            variant="outlined"
+            variant="text"
             size="small"
             onClick={() =>
               router.push(`/units/${asset.unitId}/assets/${asset.id}`)

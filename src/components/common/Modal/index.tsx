@@ -1,21 +1,29 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
+import Button, { ButtonProps } from "@mui/material/Button";
 import MuiModal from "@mui/material/Modal";
 import { StyledModalContainer } from "./styled";
+import { Box } from "@mui/material";
 
 interface ModalProps {
   buttonText: string;
   children: React.ReactNode;
+  buttonVariant?: ButtonProps["variant"];
 }
 
-export const Modal: React.FC<ModalProps> = ({ buttonText, children }) => {
+export const Modal: React.FC<ModalProps> = ({
+  buttonText,
+  children,
+  buttonVariant = "text",
+}) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
-    <div>
-      <Button onClick={handleOpen}>{buttonText}</Button>
+    <Box>
+      <Button onClick={handleOpen} variant={buttonVariant}>
+        {buttonText}
+      </Button>
       <MuiModal
         open={open}
         onClose={handleClose}
@@ -24,6 +32,6 @@ export const Modal: React.FC<ModalProps> = ({ buttonText, children }) => {
       >
         <StyledModalContainer>{children}</StyledModalContainer>
       </MuiModal>
-    </div>
+    </Box>
   );
 };

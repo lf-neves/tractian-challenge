@@ -21,7 +21,7 @@ export interface Asset {
   metrics: Metric;
   model: string;
   name: string;
-  sensors: Array<String>;
+  sensors: Array<string>;
   specifications: any;
   status: string;
   unitId: number;

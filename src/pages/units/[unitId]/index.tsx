@@ -4,7 +4,7 @@ import { SelectMenu } from "@/components/common/SelectMenu";
 import Dashboard from "@/components/Dashboard";
 import { DashboardItem } from "@/components/Dashboard/DashboardItem";
 import Title from "@/components/Dashboard/DashboardItem/Title";
-import { UsersTable } from "@/components/UsersTable";
+import { UsersTable } from "@/components/tables/UsersTable";
 import { useGetAssets } from "@/lib/hooks/useGetAssets";
 import { useGetUnits } from "@/lib/hooks/useGetUnits";
 import { useGetUsers } from "@/lib/hooks/useGetUsers";

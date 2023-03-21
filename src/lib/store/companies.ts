@@ -33,7 +33,11 @@ export const storeSlice = createSlice({
     setSelectedCompanyId: (state, action) => {
       state.selectedCompanyId = action.payload;
     },
+    updateAssets(state, action) {
+      state.assets = action.payload;
+    },
   },
 });
 
-export const { updateStore, setSelectedCompanyId } = storeSlice.actions;
+export const { updateStore, setSelectedCompanyId, updateAssets } =
+  storeSlice.actions;

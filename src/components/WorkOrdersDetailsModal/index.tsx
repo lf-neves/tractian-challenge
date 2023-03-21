@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { Modal } from "../common/Modal";
 import Title from "../Dashboard/DashboardItem/Title";
-import { UsersTable } from "../UsersTable";
+import { UsersTable } from "../tables/UsersTable";
 import DetailsIcon from "@mui/icons-material/Details";
 import BuildIcon from "@mui/icons-material/Build";
 import LowPriorityIcon from "@mui/icons-material/LowPriority";

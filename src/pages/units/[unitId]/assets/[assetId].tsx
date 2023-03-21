@@ -1,7 +1,7 @@
 import { Flex } from "@/components/common/Flex";
 import { SelectMenu } from "@/components/common/SelectMenu";
 import Title from "@/components/Dashboard/DashboardItem/Title";
-import { WorkOrdersTable } from "@/components/WorkOrdersTable";
+import { WorkOrdersTable } from "@/components/tables/WorkOrdersTable";
 import { useGetAssets } from "@/lib/hooks/useGetAssets";
 import { useSetCompanies } from "@/lib/hooks/useSetCompanies";
 import {
@@ -26,6 +26,8 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { AssetStatusChip } from "@/components/AssetItem/AssetStatusChip";
 import { HealthHistoryChart } from "@/components/charts/HealthHistoryChart";
 import { DashboardItem } from "@/components/Dashboard/DashboardItem";
+import { EditAssetForm } from "@/components/EditAssetForm";
+import { Modal } from "@/components/common/Modal";
 
 const Asset = () => {
   useSetCompanies();
@@ -64,9 +66,13 @@ const Asset = () => {
                 onChange={(value) => setSelectedAssetId(value)}
                 selectedValue={selectedAssetId}
               />
+              <Box sx={{ ml: 5 }}>
+                <Modal buttonText="Edit" buttonVariant="contained">
+                  <EditAssetForm asset={selectedAsset} />
+                </Modal>
+              </Box>
             </Flex>
           </Grid>
-          {/* Chart */}
           <Grid item xs={6} md={3} lg={3}>
             <Box
               sx={{
@@ -110,7 +116,13 @@ const Asset = () => {
                   </ListItemIcon>
                   <ListItemText
                     primary="Sensors"
-                    secondary={selectedAsset.sensors.map((s) => s)}
+                    secondary={
+                      <ul style={{ paddingLeft: 20 }}>
+                        {selectedAsset.sensors.map((s, index) => (
+                          <li key={index}>{s}</li>
+                        ))}
+                      </ul>
+                    }
                   />
                 </ListItem>
                 <ListItem>

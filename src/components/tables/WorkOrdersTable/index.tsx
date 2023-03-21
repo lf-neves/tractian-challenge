@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Box } from "@mui/material";
 import { useGetWorkOrders } from "@/lib/hooks/useGetWorkOrders";
-import { WorkOrdersDetailsModal } from "../WorkOrdersDetailsModal";
+import { WorkOrdersDetailsModal } from "../../WorkOrdersDetailsModal";
 
 interface WorkOrdersTable {
   assetId: number;
